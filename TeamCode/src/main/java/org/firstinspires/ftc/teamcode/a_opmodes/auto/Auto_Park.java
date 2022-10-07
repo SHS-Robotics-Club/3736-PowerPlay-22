@@ -25,7 +25,6 @@ public class Auto_Park extends LinearOpMode {
 
 		final RRHardware drive = new RRHardware(hardwareMap);
 		final Hardware robot = new Hardware(hardwareMap);
-		robot.led.set(1);
 
 		RRHardware.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH);
 		RRHardware.getAccelerationConstraint(DriveConstants.MAX_ACCEL);

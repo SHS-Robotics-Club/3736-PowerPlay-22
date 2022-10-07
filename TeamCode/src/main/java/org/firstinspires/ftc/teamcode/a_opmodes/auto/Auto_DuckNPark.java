@@ -31,7 +31,6 @@ public class Auto_DuckNPark extends LinearOpMode {
 
 		final RRHardware drive = new RRHardware(hardwareMap);
 		final Hardware robot = new Hardware(hardwareMap);
-		robot.led.set(1);
 
 		RRHardware.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH);
 		RRHardware.getAccelerationConstraint(DriveConstants.MAX_ACCEL);
@@ -61,9 +60,9 @@ public class Auto_DuckNPark extends LinearOpMode {
 		drive.followTrajectory(toDuck);
 		drive.setPoseEstimate(new Pose2d(-67,-60, Math.toRadians(90)));
 		runtime.reset();
-		while (opModeIsActive() && (runtime.seconds() < DUCK_TIME)) {
-			robot.duckSpin.set(0.6);
-		}
+//		while (opModeIsActive() && (runtime.seconds() < DUCK_TIME)) {
+//			robot.duckSpin.set(0.6);
+//		}
 		drive.followTrajectory(forward);
 		drive.setPoseEstimate(new Pose2d(-67,-55, Math.toRadians(90)));
 		drive.turn(Math.toRadians(TURN_DEGB));
