@@ -16,7 +16,7 @@ import org.firstinspires.ftc.teamcode.opmodes.HardwareRR;
 public class Auto_Park extends LinearOpMode {
 	private final ElapsedTime runtime = new ElapsedTime();
 
-	public static double	FORWARD = 27;
+	public static double FORWARD = 27;
 
 	// -72 -36
 	public void runOpMode() {
@@ -24,7 +24,7 @@ public class Auto_Park extends LinearOpMode {
 		telemetry.update();
 
 		final HardwareRR drive = new HardwareRR(hardwareMap);
-		final Hardware robot = new Hardware(hardwareMap);
+		final Hardware   robot = new Hardware(hardwareMap);
 
 		HardwareRR.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH);
 		HardwareRR.getAccelerationConstraint(DriveConstants.MAX_ACCEL);
@@ -37,10 +37,10 @@ public class Auto_Park extends LinearOpMode {
 				.build();
 
 		waitForStart();
-		if(isStopRequested()) return;
+		if (isStopRequested()) return;
 
 		drive.followTrajectory(forward);
-		drive.setPoseEstimate(new Pose2d(-72,36));
+		drive.setPoseEstimate(new Pose2d(-72, 36));
 
 		telemetry.addData("Status", "Done");
 		telemetry.update();

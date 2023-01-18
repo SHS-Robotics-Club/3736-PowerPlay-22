@@ -16,12 +16,12 @@ import org.firstinspires.ftc.teamcode.opmodes.HardwareRR;
 public class Auto_DuckNPark extends LinearOpMode {
 	private final ElapsedTime runtime = new ElapsedTime();
 
-	public static double 	REVERSE = 26;
-	public static double	DUCK_TIME = 5;
-	public static double	FORWARD = 15;
-	public static double	TURN_DEGA = 70;
-	public static double	TURN_DEGB = -110;
-	public static double	PARK = 24;
+	public static double REVERSE   = 26;
+	public static double DUCK_TIME = 5;
+	public static double FORWARD   = 15;
+	public static double TURN_DEGA = 70;
+	public static double TURN_DEGB = -110;
+	public static double PARK      = 24;
 
 	// -72 -36
 	public void runOpMode() {
@@ -29,7 +29,7 @@ public class Auto_DuckNPark extends LinearOpMode {
 		telemetry.update();
 
 		final HardwareRR drive = new HardwareRR(hardwareMap);
-		final Hardware robot = new Hardware(hardwareMap);
+		final Hardware   robot = new Hardware(hardwareMap);
 
 		HardwareRR.getVelocityConstraint(DriveConstants.MAX_VEL, DriveConstants.MAX_ANG_VEL, DriveConstants.TRACK_WIDTH);
 		HardwareRR.getAccelerationConstraint(DriveConstants.MAX_ACCEL);
@@ -50,24 +50,24 @@ public class Auto_DuckNPark extends LinearOpMode {
 				.build();
 
 		waitForStart();
-		if(isStopRequested()) return;
+		if (isStopRequested()) return;
 
 		drive.followTrajectory(forward);
-		drive.setPoseEstimate(new Pose2d(-67,-36));
+		drive.setPoseEstimate(new Pose2d(-67, -36));
 		drive.turn(Math.toRadians(TURN_DEGA));
-		drive.setPoseEstimate(new Pose2d(-67,-36, Math.toRadians(90)));
+		drive.setPoseEstimate(new Pose2d(-67, -36, Math.toRadians(90)));
 		drive.followTrajectory(toDuck);
-		drive.setPoseEstimate(new Pose2d(-67,-60, Math.toRadians(90)));
+		drive.setPoseEstimate(new Pose2d(-67, -60, Math.toRadians(90)));
 		runtime.reset();
 //		while (opModeIsActive() && (runtime.seconds() < DUCK_TIME)) {
 //			robot.duckSpin.set(0.6);
 //		}
 		drive.followTrajectory(forward);
-		drive.setPoseEstimate(new Pose2d(-67,-55, Math.toRadians(90)));
+		drive.setPoseEstimate(new Pose2d(-67, -55, Math.toRadians(90)));
 		drive.turn(Math.toRadians(TURN_DEGB));
-		drive.setPoseEstimate(new Pose2d(-67,-55, Math.toRadians(-45)));
+		drive.setPoseEstimate(new Pose2d(-67, -55, Math.toRadians(-45)));
 		drive.followTrajectory(toPark);
-		drive.setPoseEstimate(new Pose2d(-36,-72, Math.toRadians(-45)));
+		drive.setPoseEstimate(new Pose2d(-36, -72, Math.toRadians(-45)));
 
 		telemetry.addData("Status", "Done");
 		telemetry.update();

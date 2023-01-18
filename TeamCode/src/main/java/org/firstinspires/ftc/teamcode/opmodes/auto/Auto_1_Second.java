@@ -10,37 +10,37 @@ import org.firstinspires.ftc.teamcode.opmodes.Hardware;
 // @Disabled
 public class Auto_1_Second extends LinearOpMode {
 
-    // Declare Members
-    private final ElapsedTime runtime = new ElapsedTime();
+	// Declare Members
+	private final ElapsedTime runtime = new ElapsedTime();
 
-    static final double FORWARD_SPEED = 0.8;
-    static final double FORWARD_TIME = 1;
+	static final double FORWARD_SPEED = 0.8;
+	static final double FORWARD_TIME  = 1;
 
-    @Override
-    public void runOpMode() {
+	@Override
+	public void runOpMode() {
 
-        // Get Hardware
-        final Hardware robot = new Hardware(hardwareMap);
+		// Get Hardware
+		final Hardware robot = new Hardware(hardwareMap);
 
-        // Telemetry
-        telemetry.addData("Status", "Ready to run");
-        telemetry.update();
+		// Telemetry
+		telemetry.addData("Status", "Ready to run");
+		telemetry.update();
 
-        // Wait for START
-        waitForStart();
+		// Wait for START
+		waitForStart();
 
-        // Drive forward
-        robot.leftMotors.set(FORWARD_SPEED);
-        robot.rightMotors.set(-FORWARD_SPEED);
-        runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < FORWARD_TIME)) {
-            telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
-            telemetry.update();
-        }
+		// Drive forward
+		robot.leftMotors.set(FORWARD_SPEED);
+		robot.rightMotors.set(-FORWARD_SPEED);
+		runtime.reset();
+		while (opModeIsActive() && (runtime.seconds() < FORWARD_TIME)) {
+			telemetry.addData("Path", "Leg 1: %2.5f S Elapsed", runtime.seconds());
+			telemetry.update();
+		}
 
-        // TODO: Set default OpMode
+		// TODO: Set default OpMode
 
-        telemetry.addData("Path", "Complete");
-        telemetry.update();
-    }
+		telemetry.addData("Path", "Complete");
+		telemetry.update();
+	}
 }
