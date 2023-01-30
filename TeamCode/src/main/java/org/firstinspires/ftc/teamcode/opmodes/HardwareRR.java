@@ -7,10 +7,10 @@ import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MAX
 import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.MOTOR_VELO_PID;
 import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.RUN_USING_ENCODER;
 import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.TRACK_WIDTH;
-import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kV;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.encoderTicksToInches;
 import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kA;
 import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kStatic;
-import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.encoderTicksToInches;
+import static org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants.kV;
 
 import androidx.annotation.NonNull;
 
@@ -53,20 +53,16 @@ import java.util.List;
  */
 @Config
 public class HardwareRR extends TankDrive {
-	public static PIDCoefficients AXIAL_PID       = new PIDCoefficients(0, 0, 0);
-	public static PIDCoefficients CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
-	public static PIDCoefficients HEADING_PID     = new PIDCoefficients(0, 0, 0);
-
-	public static double VX_WEIGHT    = 1;
-	public static double OMEGA_WEIGHT = 1;
-
-	private TrajectorySequenceRunner trajectorySequenceRunner;
-
 	private static final TrajectoryVelocityConstraint     VEL_CONSTRAINT  = getVelocityConstraint(MAX_VEL, MAX_ANG_VEL,
 	                                                                                              TRACK_WIDTH);
 	private static final TrajectoryAccelerationConstraint accelConstraint = getAccelerationConstraint(MAX_ACCEL);
-
-	private TrajectoryFollower follower;
+	public static        PIDCoefficients                  AXIAL_PID       = new PIDCoefficients(0, 0, 0);
+	public static        PIDCoefficients                  CROSS_TRACK_PID = new PIDCoefficients(0, 0, 0);
+	public static        PIDCoefficients                  HEADING_PID     = new PIDCoefficients(0, 0, 0);
+	public static        double                           VX_WEIGHT       = 1;
+	public static        double                           OMEGA_WEIGHT    = 1;
+	private              TrajectorySequenceRunner         trajectorySequenceRunner;
+	private              TrajectoryFollower               follower;
 
 	private List<DcMotorEx> motors, leftMotors, rightMotors;
 	private BNO055IMU imu;
@@ -156,6 +152,17 @@ public class HardwareRR extends TankDrive {
 		trajectorySequenceRunner = new TrajectorySequenceRunner(follower, HEADING_PID);
 	}
 
+	public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel,
+	                                                                 double trackWidth) {
+		return new MinVelocityConstraint(Arrays.asList(
+				new AngularVelocityConstraint(maxAngularVel),
+				new TankVelocityConstraint(maxVel, trackWidth)));
+	}
+
+	public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
+		return new ProfileAccelerationConstraint(maxAccel);
+	}
+
 	public TrajectoryBuilder trajectoryBuilder(Pose2d startPose) {
 		return new TrajectoryBuilder(startPose, VEL_CONSTRAINT, accelConstraint);
 	}
@@ -215,15 +222,15 @@ public class HardwareRR extends TankDrive {
 	public void update() {
 		updatePoseEstimate();
 		DriveSignal signal = trajectorySequenceRunner.update(getPoseEstimate(), getPoseVelocity());
-        if (signal != null) {
-            setDriveSignal(signal);
-        }
+		if (signal != null) {
+			setDriveSignal(signal);
+		}
 	}
 
 	public void waitForIdle() {
-        while (!Thread.currentThread().isInterrupted() && isBusy()) {
-            update();
-        }
+		while (!Thread.currentThread().isInterrupted() && isBusy()) {
+			update();
+		}
 	}
 
 	public boolean isBusy() {
@@ -316,16 +323,5 @@ public class HardwareRR extends TankDrive {
 		// See https://github.com/FIRST-Tech-Challenge/FtcRobotController/issues/251 for
 		// details.
 		return (double) -imu.getAngularVelocity().xRotationRate;
-	}
-
-	public static TrajectoryVelocityConstraint getVelocityConstraint(double maxVel, double maxAngularVel,
-	                                                                 double trackWidth) {
-		return new MinVelocityConstraint(Arrays.asList(
-				new AngularVelocityConstraint(maxAngularVel),
-				new TankVelocityConstraint(maxVel, trackWidth)));
-	}
-
-	public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
-		return new ProfileAccelerationConstraint(maxAccel);
 	}
 }

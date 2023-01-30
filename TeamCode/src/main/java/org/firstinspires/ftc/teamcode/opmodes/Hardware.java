@@ -6,7 +6,6 @@ import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.VoltageSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import java.util.List;
@@ -35,13 +34,13 @@ public class Hardware {
 	public ElapsedTime      time      = new ElapsedTime(); // Time
 	public List<LynxModule> revHubs; //Lynx Module for REV Hubs
 
-	// BOT VARIABLES
-	public double volt = Double.POSITIVE_INFINITY; // Bot Voltage
-
 	public Hardware(HardwareMap hardwareMap) {
-		// MISC ----------------------------------------------------------------------------------------------------
-		// Rev Lynx
+		// Bulk Read
 		revHubs = hardwareMap.getAll(LynxModule.class);
+
+		for (LynxModule hub : revHubs) {
+			hub.setBulkCachingMode(LynxModule.BulkCachingMode.AUTO);
+		}
 
 		// MOTORS ----------------------------------------------------------------------------------------------------
 		// Map
@@ -65,11 +64,6 @@ public class Hardware {
 		arm.resetEncoder();
 
 		// Set RunMode for motors (RawPower, VelocityControl, PositionControl)
-		frontLeft.setRunMode(MotorEx.RunMode.VelocityControl);
-		frontRight.setRunMode(MotorEx.RunMode.VelocityControl);
-		backLeft.setRunMode(MotorEx.RunMode.VelocityControl);
-		backRight.setRunMode(MotorEx.RunMode.VelocityControl);
-
 		arm.setRunMode(MotorEx.RunMode.PositionControl);
 
 		// Brake when zero power
@@ -86,14 +80,5 @@ public class Hardware {
 
 		// Default POS
 		claw.setTargetPosition(0);
-
-
-		// VOLTAGE ----------------------------------------------------------------------------------------------------
-		for (VoltageSensor sensor : hardwareMap.voltageSensor) {
-			double voltage = sensor.getVoltage();
-			if (voltage > 0) {
-				volt = Math.min(volt, voltage);
-			}
-		}
 	}
 }

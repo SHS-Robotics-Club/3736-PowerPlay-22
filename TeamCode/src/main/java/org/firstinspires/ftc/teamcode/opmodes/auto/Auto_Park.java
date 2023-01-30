@@ -7,16 +7,15 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.opmodes.Hardware;
 import org.firstinspires.ftc.teamcode.opmodes.HardwareRR;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 
 @Config
 @Autonomous(name = "Park", group = "RoadRunner", preselectTeleOp = "FF: TeleOp")
 public class Auto_Park extends LinearOpMode {
+	public static double      FORWARD = 27;
 	private final ElapsedTime runtime = new ElapsedTime();
-
-	public static double FORWARD = 27;
 
 	// -72 -36
 	public void runOpMode() {

@@ -10,11 +10,10 @@ import org.firstinspires.ftc.teamcode.opmodes.Hardware;
 // @Disabled
 public class Auto_1_Second extends LinearOpMode {
 
+	static final  double      FORWARD_SPEED = 0.8;
+	static final  double      FORWARD_TIME  = 1;
 	// Declare Members
-	private final ElapsedTime runtime = new ElapsedTime();
-
-	static final double FORWARD_SPEED = 0.8;
-	static final double FORWARD_TIME  = 1;
+	private final ElapsedTime runtime       = new ElapsedTime();
 
 	@Override
 	public void runOpMode() {

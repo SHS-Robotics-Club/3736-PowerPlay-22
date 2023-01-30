@@ -19,18 +19,15 @@ import java.text.DecimalFormat;
 @TeleOp(name = "TeleOp", group = ".")
 public class MainTeleOp extends LinearOpMode {
 	// TICK TO DEG
-	private static final double nr40 = (360.0 / 1120.0) / 3;
-
-	// CONFIGURATION
-	public static double ARM_kP        = 0.05; // P controller ???
-	public static double ARM_INCREMENT = 10 / nr40; // Amount of DEG to increment by
-
-	public static double DRIVE_MULT = 1; // Drive speed multiplier
-	public static double TURN_MULT  = 0.65; // Turn speed multiplier
-
+	private static final double        nr40          = (360.0 / 1120.0) / 3;
 	// NUMBER FORMATS
 	private static final DecimalFormat decimalTenths = new DecimalFormat("0.00");
 	private static final DecimalFormat doubleDigits  = new DecimalFormat("00");
+	// CONFIGURATION
+	public static        double        ARM_kP        = 0.05; // P controller ???
+	public static        double        ARM_INCREMENT = 10 / nr40; // Amount of DEG to increment by
+	public static        double        DRIVE_MULT    = 1; // Drive speed multiplier
+	public static        double        TURN_MULT     = 0.65; // Turn speed multiplier
 
 	@Override
 	public void runOpMode() {
@@ -57,8 +54,8 @@ public class MainTeleOp extends LinearOpMode {
 		double targetPosition = 0; // Init Arm Pos
 
 		// CLAW VAR
-		long    lastx        = 0; // Time since X last pressed
-		boolean clw          = false; // Claw toggle state
+		long    lastx = 0; // Time since X last pressed
+		boolean clw   = false; // Claw toggle state
 		double  clawPosition; // Init Claw Pos
 
 		while (opModeIsActive()) {
@@ -96,7 +93,7 @@ public class MainTeleOp extends LinearOpMode {
 			bot.arm.setPositionTolerance(13.6);  // allowed maximum error Default: 13.6
 
 			// perform the control loop
-			while (!bot.arm.atTargetPosition()) {
+			if (!bot.arm.atTargetPosition()) {
 				bot.arm.set(0.2);
 			}
 
@@ -136,13 +133,8 @@ public class MainTeleOp extends LinearOpMode {
 
 			// TELEMETRY--------------------------------------------------------------------------------------
 			// Driver Station Telemetry
-			telemetry.addData("!Status",
-			                  "Run Time: " + doubleDigits.format(t2) + ":" + doubleDigits.format(t3) + ":" + doubleDigits.format(t1)); // Run Time HH:MM:SS
+			telemetry.addData("!Status", "Run Time: " + doubleDigits.format(t2) + ":" + doubleDigits.format(t3) + ":" + doubleDigits.format(t1)); // Run Time HH:MM:SS
 			telemetry.addData("Arm DEG", bot.arm.getCurrentPosition() * nr40);
-
-
-			// Dashboard Specific Telemetry
-			dTelemetry.addData("Voltage", decimalTenths.format(bot.volt + " V")); // Voltage
 
 			telemetry.update();
 			idle();

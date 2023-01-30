@@ -7,21 +7,20 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 import org.firstinspires.ftc.teamcode.opmodes.Hardware;
 import org.firstinspires.ftc.teamcode.opmodes.HardwareRR;
+import org.firstinspires.ftc.teamcode.roadrunner.drive.DriveConstants;
 
 @Config
 @Autonomous(name = "DuckNPark", group = "RoadRunner", preselectTeleOp = "FF: TeleOp")
 public class Auto_DuckNPark extends LinearOpMode {
-	private final ElapsedTime runtime = new ElapsedTime();
-
-	public static double REVERSE   = 26;
-	public static double DUCK_TIME = 5;
-	public static double FORWARD   = 15;
-	public static double TURN_DEGA = 70;
-	public static double TURN_DEGB = -110;
-	public static double PARK      = 24;
+	public static double      REVERSE   = 26;
+	public static double      DUCK_TIME = 5;
+	public static double      FORWARD   = 15;
+	public static double      TURN_DEGA = 70;
+	public static double      TURN_DEGB = -110;
+	public static double      PARK      = 24;
+	private final ElapsedTime runtime   = new ElapsedTime();
 
 	// -72 -36
 	public void runOpMode() {
