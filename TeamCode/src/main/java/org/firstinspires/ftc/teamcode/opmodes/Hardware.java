@@ -1,12 +1,15 @@
 package org.firstinspires.ftc.teamcode.opmodes;
 
 import com.acmerobotics.dashboard.FtcDashboard;
-import com.arcrobotics.ftclib.hardware.motors.CRServo;
+import com.arcrobotics.ftclib.hardware.ServoEx;
+import com.arcrobotics.ftclib.hardware.SimpleServo;
 import com.arcrobotics.ftclib.hardware.motors.MotorEx;
 import com.arcrobotics.ftclib.hardware.motors.MotorGroup;
 import com.qualcomm.hardware.lynx.LynxModule;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 
 import java.util.List;
 
@@ -19,7 +22,7 @@ import java.util.List;
  * MOTOR		backRight		bR		Back Right Omni
  *
  * MOTOR		arm				arm		Virtual Forebear Arm
- * CRSERVO		claw			claw	Da Claw
+ * SERVO		claw			claw	Da Claw
  */
 
 public class Hardware {
@@ -27,7 +30,7 @@ public class Hardware {
 	public MotorEx frontLeft, frontRight, backLeft, backRight;
 	public MotorGroup leftMotors, rightMotors;
 	public MotorEx arm;
-	public CRServo claw;
+	public ServoEx claw;
 
 	// MISC DEFINITIONS
 	public FtcDashboard     dashboard = FtcDashboard.getInstance(); //FTC Dashboard Instance
@@ -76,9 +79,9 @@ public class Hardware {
 
 		// SERVOS ----------------------------------------------------------------------------------------------------
 		// Map
-		claw = new CRServo(hardwareMap, "claw");
+		claw = new SimpleServo(hardwareMap, "claw", 0, 360, AngleUnit.DEGREES);
 
 		// Default POS
-		claw.setTargetPosition(0);
+		claw.setPosition(0);
 	}
 }

@@ -113,15 +113,7 @@ public class MainTeleOp extends LinearOpMode {
 				clawPosition = -30;
 			}
 
-			// set the target position
-			bot.claw.setTargetPosition((int) clawPosition);
-
-			bot.claw.set(0);
-
-			// perform the control loop
-			while (!bot.claw.atTargetPosition()) {
-				bot.claw.set(0.2);
-			}
+			bot.claw.turnToAngle(clawPosition);
 
 			// Misc Things---------------------------------------------------------------------------
 			// Calculate Run-Time
