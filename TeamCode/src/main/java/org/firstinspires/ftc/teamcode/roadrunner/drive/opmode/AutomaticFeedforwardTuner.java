@@ -41,10 +41,11 @@ public class AutomaticFeedforwardTuner extends LinearOpMode {
 	public void runOpMode() throws InterruptedException {
 		if (DriveConstants.RUN_USING_ENCODER) {
 			RobotLog.setGlobalErrorMsg("Feedforward constants usually don't need to be tuned " +
-					                           "when using the built-in drive motor velocity PID.");
+			                           "when using the built-in drive motor velocity PID.");
 		}
 
-		Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+		Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance()
+		                                                                        .getTelemetry());
 
 		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 

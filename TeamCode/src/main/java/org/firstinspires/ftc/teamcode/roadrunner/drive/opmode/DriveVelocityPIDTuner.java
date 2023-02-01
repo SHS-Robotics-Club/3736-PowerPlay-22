@@ -60,10 +60,11 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 	public void runOpMode() {
 		if (!DriveConstants.RUN_USING_ENCODER) {
 			RobotLog.setGlobalErrorMsg("%s does not need to be run if the built-in motor velocity" +
-					                           "PID is not in use", getClass().getSimpleName());
+			                           "PID is not in use", getClass().getSimpleName());
 		}
 
-		Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+		Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance()
+		                                                                        .getTelemetry());
 
 		SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
@@ -124,7 +125,7 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 						telemetry.addData(
 								"error" + i,
 								motionState.getV() - velocities.get(i)
-						);
+						                 );
 					}
 					break;
 				case DRIVER_MODE:
@@ -143,12 +144,14 @@ public class DriveVelocityPIDTuner extends LinearOpMode {
 									-gamepad1.left_stick_x,
 									-gamepad1.right_stick_x
 							)
-					);
+					                           );
 					break;
 			}
 
-			if (lastKp != DriveConstants.MOTOR_VELO_PID.p || lastKd != DriveConstants.MOTOR_VELO_PID.d
-					|| lastKi != DriveConstants.MOTOR_VELO_PID.i || lastKf != DriveConstants.MOTOR_VELO_PID.f) {
+			if (lastKp != DriveConstants.MOTOR_VELO_PID.p ||
+			    lastKd != DriveConstants.MOTOR_VELO_PID.d
+			    || lastKi != DriveConstants.MOTOR_VELO_PID.i ||
+			    lastKf != DriveConstants.MOTOR_VELO_PID.f) {
 				drive.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, DriveConstants.MOTOR_VELO_PID);
 
 				lastKp = DriveConstants.MOTOR_VELO_PID.p;

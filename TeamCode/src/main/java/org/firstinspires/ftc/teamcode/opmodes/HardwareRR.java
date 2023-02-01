@@ -264,7 +264,7 @@ public class HardwareRR extends TankDrive {
 		if (Math.abs(drivePower.getX()) + Math.abs(drivePower.getHeading()) > 1) {
 			// re-normalize the powers according to the weights
 			double denom = VX_WEIGHT * Math.abs(drivePower.getX())
-					+ OMEGA_WEIGHT * Math.abs(drivePower.getHeading());
+			               + OMEGA_WEIGHT * Math.abs(drivePower.getHeading());
 
 			vel = new Pose2d(
 					VX_WEIGHT * drivePower.getX(),

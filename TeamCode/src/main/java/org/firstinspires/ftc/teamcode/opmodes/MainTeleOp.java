@@ -19,15 +19,15 @@ import java.text.DecimalFormat;
 @TeleOp(name = "TeleOp", group = ".")
 public class MainTeleOp extends LinearOpMode {
 	// TICK TO DEG
-	private static final double        nr40          = (360.0 / 1120.0) / 3;
+	private static final double        nr40           = (360.0 / 1120.0) / 3;
 	// NUMBER FORMATS
-	private static final DecimalFormat decimalTenths = new DecimalFormat("0.00");
-	private static final DecimalFormat doubleDigits  = new DecimalFormat("00");
+	private static final DecimalFormat doubleDigits   = new DecimalFormat("00");
 	// CONFIGURATION
-	public static        double        ARM_kP        = 0.05; // P controller ???
-	public static        double        ARM_INCREMENT = 10 / nr40; // Amount of DEG to increment by
-	public static        double        DRIVE_MULT    = 1; // Drive speed multiplier
-	public static        double        TURN_MULT     = 0.65; // Turn speed multiplier
+	public static        double        ARM_kP         = 0.01; // P controller ???
+	public static        double        ARM_INCREMENT  = 5; // Amount of DEG to increment by
+	public static        double        DRIVE_MULT     = 1; // Drive speed multiplier
+	public static        double        TURN_MULT      = 0.65; // Turn speed multiplier
+	public static        int[]         LIFT_POSITIONS = {0, 100, 200, 465};
 
 	@Override
 	public void runOpMode() {
@@ -75,10 +75,20 @@ public class MainTeleOp extends LinearOpMode {
 
 			// ARM-----------------------------------------------------------------------------------
 			// Controls
-			if (gPad1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0) {
+			if (gPad1.getTrigger(GamepadKeys.Trigger.LEFT_TRIGGER) > 0 && targetPosition >= 0) {
 				targetPosition -= ARM_INCREMENT;
-			} else if (gPad1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0) {
+			} else if (gPad1.getTrigger(GamepadKeys.Trigger.RIGHT_TRIGGER) > 0 && targetPosition <= 465) {
 				targetPosition += ARM_INCREMENT;
+			}
+
+			if (gPad1.isDown(GamepadKeys.Button.DPAD_DOWN)) {
+				targetPosition = LIFT_POSITIONS[0];
+			} else if (gPad1.isDown(GamepadKeys.Button.DPAD_LEFT)) {
+				targetPosition = LIFT_POSITIONS[1];
+			} else if (gPad1.isDown(GamepadKeys.Button.DPAD_UP)) {
+				targetPosition = LIFT_POSITIONS[2];
+			} else if (gPad1.isDown(GamepadKeys.Button.DPAD_RIGHT)) {
+				targetPosition = LIFT_POSITIONS[3];
 			}
 
 			// set and get the position coefficient
@@ -87,17 +97,16 @@ public class MainTeleOp extends LinearOpMode {
 			// set the target position
 			bot.arm.setTargetPosition((int) targetPosition);  // an integer representing desired tick count
 
-			bot.arm.set(0);
-
 			// set the tolerance
-			bot.arm.setPositionTolerance(13.6);  // allowed maximum error Default: 13.6
+			bot.arm.setPositionTolerance(20);  // allowed maximum error Default: 13.6
 
 			// perform the control loop
 			if (!bot.arm.atTargetPosition()) {
 				bot.arm.set(0.2);
+			} else {
+				bot.arm.set(0);
+				bot.arm.stopMotor();
 			}
-
-			bot.arm.stopMotor();   // stop the motor
 
 			// CLAW----------------------------------------------------------------------------------
 			// Toggle claw state if last button press not within 500ms
@@ -125,8 +134,11 @@ public class MainTeleOp extends LinearOpMode {
 
 			// TELEMETRY--------------------------------------------------------------------------------------
 			// Driver Station Telemetry
-			telemetry.addData("!Status", "Run Time: " + doubleDigits.format(t2) + ":" + doubleDigits.format(t3) + ":" + doubleDigits.format(t1)); // Run Time HH:MM:SS
-			telemetry.addData("Arm DEG", bot.arm.getCurrentPosition() * nr40);
+			telemetry.addData("!Status", "Run Time: " + doubleDigits.format(t2) + ":" +
+			                             doubleDigits.format(t3) + ":" +
+			                             doubleDigits.format(t1)); // Run Time HH:MM:SS
+			telemetry.addData("Arm DEG", bot.arm.getCurrentPosition());
+			telemetry.addData("Arm DEG", targetPosition);
 
 			telemetry.update();
 			idle();

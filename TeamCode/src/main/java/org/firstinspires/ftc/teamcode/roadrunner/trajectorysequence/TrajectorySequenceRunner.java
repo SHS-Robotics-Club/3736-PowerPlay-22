@@ -136,7 +136,8 @@ public class TrajectorySequenceRunner {
 
 				targetPose = currentTrajectory.get(deltaTime);
 			} else if (currentSegment instanceof TurnSegment) {
-				MotionState targetState = ((TurnSegment) currentSegment).getMotionProfile().get(deltaTime);
+				MotionState targetState = ((TurnSegment) currentSegment).getMotionProfile()
+				                                                        .get(deltaTime);
 
 				turnController.setTargetPosition(targetState.getX());
 
@@ -201,7 +202,7 @@ public class TrajectorySequenceRunner {
 			Canvas fieldOverlay,
 			TrajectorySequence sequence, SequenceSegment currentSegment,
 			Pose2d targetPose, Pose2d poseEstimate
-	) {
+	                 ) {
 		if (sequence != null) {
 			for (int i = 0; i < sequence.size(); i++) {
 				SequenceSegment segment = sequence.get(i);
@@ -210,7 +211,8 @@ public class TrajectorySequenceRunner {
 					fieldOverlay.setStrokeWidth(1);
 					fieldOverlay.setStroke(COLOR_INACTIVE_TRAJECTORY);
 
-					DashboardUtil.drawSampledPath(fieldOverlay, ((TrajectorySegment) segment).getTrajectory().getPath());
+					DashboardUtil.drawSampledPath(fieldOverlay, ((TrajectorySegment) segment).getTrajectory()
+					                                                                         .getPath());
 				} else if (segment instanceof TurnSegment) {
 					Pose2d pose = segment.getStartPose();
 

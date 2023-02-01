@@ -88,7 +88,7 @@ public class LynxModuleUtil {
 			if (other instanceof LynxFirmwareVersion) {
 				LynxFirmwareVersion otherVersion = (LynxFirmwareVersion) other;
 				return major == otherVersion.major && minor == otherVersion.minor &&
-						eng == otherVersion.eng;
+				       eng == otherVersion.eng;
 			} else {
 				return false;
 			}

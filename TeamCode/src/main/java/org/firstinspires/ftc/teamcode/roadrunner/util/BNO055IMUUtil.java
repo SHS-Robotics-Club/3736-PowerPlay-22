@@ -38,8 +38,9 @@ public class BNO055IMUUtil {
 			boolean isYSwapped = indices[1] != 1;
 			boolean isZSwapped = indices[2] != 2;
 			boolean areTwoAxesSwapped = (isXSwapped || isYSwapped || isZSwapped)
-					&& (!isXSwapped || !isYSwapped || !isZSwapped);
-			boolean oddNumOfFlips = (((axisMapSigns >> 2) ^ (axisMapSigns >> 1) ^ axisMapSigns) & 1) == 1;
+			                            && (!isXSwapped || !isYSwapped || !isZSwapped);
+			boolean oddNumOfFlips =
+					(((axisMapSigns >> 2) ^ (axisMapSigns >> 1) ^ axisMapSigns) & 1) == 1;
 			// != functions as xor
 			if (areTwoAxesSwapped != oddNumOfFlips) {
 				throw new InvalidAxisRemapException("Coordinate system is left-handed");

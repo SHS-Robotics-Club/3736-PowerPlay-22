@@ -32,8 +32,8 @@ public class Auto_Park extends LinearOpMode {
 		Pose2d startPose = new Pose2d(-72, 12);
 
 		Trajectory forward = drive.trajectoryBuilder(startPose, false)
-				.forward(FORWARD)
-				.build();
+		                          .forward(FORWARD)
+		                          .build();
 
 		waitForStart();
 		if (isStopRequested()) return;

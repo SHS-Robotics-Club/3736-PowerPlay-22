@@ -38,7 +38,8 @@ public class MaxAngularVeloTuner extends LinearOpMode {
 
 		drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-		Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance().getTelemetry());
+		Telemetry telemetry = new MultipleTelemetry(this.telemetry, FtcDashboard.getInstance()
+		                                                                        .getTelemetry());
 
 		telemetry.addLine("Your bot will turn at full speed for " + RUNTIME + " seconds.");
 		telemetry.addLine("Please ensure you have enough space cleared.");
@@ -67,7 +68,8 @@ public class MaxAngularVeloTuner extends LinearOpMode {
 		telemetry.addData("Max Angular Velocity (rad)", maxAngVelocity);
 		telemetry.addData("Max Angular Velocity (deg)", Math.toDegrees(maxAngVelocity));
 		telemetry.addData("Max Recommended Angular Velocity (rad)", maxAngVelocity * 0.8);
-		telemetry.addData("Max Recommended Angular Velocity (deg)", Math.toDegrees(maxAngVelocity * 0.8));
+		telemetry.addData("Max Recommended Angular Velocity (deg)", Math.toDegrees(
+				maxAngVelocity * 0.8));
 		telemetry.update();
 
 		while (!isStopRequested()) idle();

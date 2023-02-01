@@ -20,7 +20,7 @@ public final class TurnSegment extends SequenceSegment {
 						Angle.norm(startPose.getHeading() + totalRotation)
 				),
 				markers
-		);
+		     );
 
 		this.totalRotation = totalRotation;
 		this.motionProfile = motionProfile;

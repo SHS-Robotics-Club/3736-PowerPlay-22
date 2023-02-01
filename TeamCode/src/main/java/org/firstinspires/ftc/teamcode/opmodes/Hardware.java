@@ -64,6 +64,7 @@ public class Hardware {
 		backLeft.resetEncoder();
 		backRight.resetEncoder();
 
+		arm.setInverted(true);
 		arm.resetEncoder();
 
 		// Set RunMode for motors (RawPower, VelocityControl, PositionControl)

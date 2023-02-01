@@ -134,7 +134,7 @@ public class SampleTankDrive extends TankDrive {
 		return new MinVelocityConstraint(Arrays.asList(
 				new AngularVelocityConstraint(maxAngularVel),
 				new TankVelocityConstraint(maxVel, trackWidth)
-		));
+		                                              ));
 	}
 
 	public static TrajectoryAccelerationConstraint getAccelerationConstraint(double maxAccel) {
@@ -166,7 +166,7 @@ public class SampleTankDrive extends TankDrive {
 				trajectorySequenceBuilder(getPoseEstimate())
 						.turn(angle)
 						.build()
-		);
+		                                                      );
 	}
 
 	public void turn(double angle) {
@@ -179,7 +179,7 @@ public class SampleTankDrive extends TankDrive {
 				trajectorySequenceBuilder(trajectory.start())
 						.addTrajectory(trajectory)
 						.build()
-		);
+		                                                      );
 	}
 
 	public void followTrajectory(Trajectory trajectory) {
@@ -244,7 +244,7 @@ public class SampleTankDrive extends TankDrive {
 		if (Math.abs(drivePower.getX()) + Math.abs(drivePower.getHeading()) > 1) {
 			// re-normalize the powers according to the weights
 			double denom = VX_WEIGHT * Math.abs(drivePower.getX())
-					+ OMEGA_WEIGHT * Math.abs(drivePower.getHeading());
+			               + OMEGA_WEIGHT * Math.abs(drivePower.getHeading());
 
 			vel = new Pose2d(
 					VX_WEIGHT * drivePower.getX(),

@@ -37,16 +37,16 @@ public class Auto_DuckNPark extends LinearOpMode {
 		Pose2d startPose = new Pose2d(-72, -36);
 
 		Trajectory toDuck = drive.trajectoryBuilder(startPose, true)
-				.back(REVERSE)
-				.build();
+		                         .back(REVERSE)
+		                         .build();
 
 		Trajectory forward = drive.trajectoryBuilder(startPose, false)
-				.forward(FORWARD)
-				.build();
+		                          .forward(FORWARD)
+		                          .build();
 
 		Trajectory toPark = drive.trajectoryBuilder(startPose, false)
-				.forward(PARK)
-				.build();
+		                         .forward(PARK)
+		                         .build();
 
 		waitForStart();
 		if (isStopRequested()) return;
